@@ -1,0 +1,35 @@
+<%- include('./public/header.ejs')%>
+
+  <div class="container hero-list">
+ 
+  </div>
+</body>
+<script src="/node_modules/jquery/dist/jquery.js"></script>
+<script src="/node_modules/art-template/lib/template-web.js"></script>
+<script type="text/html" id="heroInfo">
+  <p><strong>Id:</strong>{{data[0].id}}</p>
+  <p><strong>姓名:</strong>{{data[0].name}}</p>
+  <p><strong>性别:</strong>{{data[0].gender}}</p>
+  <p><strong>年龄:</strong>{{data[0].age}}</p>
+  <p><strong>添加时间:</strong>{{data[0].date}}</p>
+  <p><strong>地址:</strong>{{data[0].address}}</p>
+  <p><strong>电话:</strong>{{data[0].phone}}</p>
+</script>
+<script>
+  $(function(){
+    $.get({
+      url: '/getHeroInfo',
+      data: {
+        id:location.search.substr(4)
+      },
+      success: function(res){
+        if(res.code == 200){
+          let str = template('heroInfo',res)
+          console.log(str)
+          $('.container.hero-list').html(str)
+        }
+      }
+    })
+  })
+</script>
+</html>
